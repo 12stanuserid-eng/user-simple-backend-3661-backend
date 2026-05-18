@@ -1,0 +1,14 @@
+const express = require('express');
+const cors = require('cors');
+const helmet = require('helmet');
+const morgan = require('morgan');
+require('dotenv').config();
+const app = express();
+const PORT = process.env.PORT || 3000;
+app.use(cors());
+app.use(helmet());
+app.use(morgan('combined'));
+app.use(express.json());
+app.get('/api/health', (req, res) => { res.json({ success: true, endpoint: '/api/health', timestamp: new Date().toISOString() }); });
+app.get('/health', (req, res) => res.json({ status: 'ok', project: 'user-simple-backend-3661', timestamp: new Date().toISOString() }));
+app.listen(PORT, () => console.log('Server running on port ' + PORT));
